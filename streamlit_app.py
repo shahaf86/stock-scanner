@@ -15,10 +15,69 @@ st.set_page_config(page_title="סורק המניות", page_icon="📈", layout=
 st.markdown(
     """
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800&display=swap');
+
+    html, body, .stApp, [class*="css"] {
+        font-family: 'Heebo', sans-serif !important;
+    }
     .stApp { direction: rtl; }
     div[data-testid="stMarkdownContainer"] { text-align: right; }
     h1, h2, h3 { text-align: right; }
-    div[data-testid="stMetric"] { direction: rtl; text-align: right; }
+
+    /* Hero title */
+    .hero-title {
+        font-size: 2.3rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #2DD4A7, #4FA3F7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0;
+    }
+    .hero-sub {
+        color: #8B96A8;
+        font-size: 0.95rem;
+        margin-top: 0.2rem;
+        margin-bottom: 1.2rem;
+    }
+
+    /* Metric cards */
+    div[data-testid="stMetric"] {
+        direction: rtl;
+        text-align: right;
+        background: linear-gradient(145deg, #161E2E, #1B2537);
+        border: 1px solid #26314A;
+        border-radius: 14px;
+        padding: 14px 18px;
+    }
+    div[data-testid="stMetric"] label { color: #8B96A8 !important; }
+
+    /* Expander */
+    div[data-testid="stExpander"] {
+        border: 1px solid #26314A;
+        border-radius: 14px;
+        background: #131A28;
+    }
+
+    /* Dataframe container */
+    div[data-testid="stDataFrame"] {
+        border: 1px solid #26314A;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    /* Buttons */
+    .stButton > button {
+        border-radius: 10px;
+        border: 1px solid #2DD4A7;
+        color: #2DD4A7;
+        background: transparent;
+        font-weight: 600;
+    }
+    .stButton > button:hover {
+        background: #2DD4A71A;
+        border-color: #2DD4A7;
+        color: #2DD4A7;
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -159,8 +218,12 @@ def fetch_scores(universe):
 # ----------------------------------------------------------------
 # UI
 # ----------------------------------------------------------------
-st.title("📈 סורק המניות")
-st.caption("המערכת מסמנת מועמדות למחקר נוסף — לא המלצות השקעה")
+st.markdown('<div class="hero-title">📈 סורק המניות</div>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="hero-sub">דירוג משולב פונדמנטלי + טכני · ארה"ב ות"א · '
+    'מועמדות למחקר, לא המלצות השקעה</div>',
+    unsafe_allow_html=True,
+)
 
 with st.expander("⚙️ הגדרות", expanded=False):
     market = st.radio("שוק", ["הכל", "ארה\"ב", "ת\"א"], horizontal=True)
@@ -208,5 +271,5 @@ st.dataframe(
 if len(df):
     st.subheader("עשירייה מובילה")
     top = df.head(10).set_index("סימול")["ציון כולל"]
-    st.bar_chart(top)
+    st.bar_chart(top, color="#2DD4A7")
     
