@@ -16,9 +16,9 @@ st.markdown(
     """
     <style>
     .stApp { direction: rtl; }
-    section[data-testid="stSidebar"] { direction: rtl; }
     div[data-testid="stMarkdownContainer"] { text-align: right; }
     h1, h2, h3 { text-align: right; }
+    div[data-testid="stMetric"] { direction: rtl; text-align: right; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -162,8 +162,7 @@ def fetch_scores(universe):
 st.title("📈 סורק המניות")
 st.caption("המערכת מסמנת מועמדות למחקר נוסף — לא המלצות השקעה")
 
-with st.sidebar:
-    st.header("הגדרות")
+with st.expander("⚙️ הגדרות", expanded=False):
     market = st.radio("שוק", ["הכל", "ארה\"ב", "ת\"א"], horizontal=True)
     w_fund = st.slider("משקל פונדמנטלי (%)", 0, 100, 50, step=5)
     st.caption(f"משקל טכני: {100 - w_fund}%")
@@ -210,4 +209,4 @@ if len(df):
     st.subheader("עשירייה מובילה")
     top = df.head(10).set_index("סימול")["ציון כולל"]
     st.bar_chart(top)
-  
+    
