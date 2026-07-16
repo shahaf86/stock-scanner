@@ -1,3 +1,0 @@
-streamlit
-yfinance
-pandas
